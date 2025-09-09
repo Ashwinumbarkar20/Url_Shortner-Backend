@@ -33,7 +33,10 @@ const authController = {
       const existingUser = await userModel.findOne({ email });
       if (existingUser) {
         if (verifyHashPassword(password, existingUser.password)) {
-          const token = CreateToken(req.body);
+          const {password,...userInfo}=existingUser.toObject()
+          console.log("userInfo-->",userInfo)
+          const token = CreateToken({userInfo});
+         
           if (token) {
             successResponse(res, 200, "Success", {
               id: existingUser._id,
@@ -47,6 +50,7 @@ const authController = {
         errorResponse(res, 404, "User Not Found");
       }
     } catch (e) {
+      console.log("error ",e)
       errorResponse(res, 500, "something went wrong");
     }
   },

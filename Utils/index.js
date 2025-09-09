@@ -9,7 +9,7 @@ export const verifyHashPassword = async (userInputPassword, hashPassword) => {
   return await bcrypt.compare(userInputPassword, hashPassword);
 };
 
-export const DecodedUserData = (token) => {
+export const DecodedUserData = async (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {

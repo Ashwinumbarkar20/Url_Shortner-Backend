@@ -4,6 +4,7 @@ import cors from "cors";
 import "dotenv/config";
 import exp from "constants";
 import authrouter from './Routes/auth.routers.js'
+import urlrouter from "./Routes/url.routers.js";
 const app = express();
 
 //middleWare
@@ -28,4 +29,5 @@ mongoose
 //router for Auth
 app.use("/api/auth",authrouter);
 //router for URL Generate
+app.use("/api/urlshortner",urlrouter)
 //app.use("/api/url");

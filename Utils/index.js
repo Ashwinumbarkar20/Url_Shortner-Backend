@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 
 export const createHasPassword = async (plainPassword) => {
   return await bcrypt.hash(plainPassword, 10);
@@ -28,3 +29,12 @@ export const errorResponse = (res,statuscode,message)=>{
 export const successResponse = (res,statuscode,message,data=null)=>{
     return res.status(statuscode).json({message:message,data:data})
 }
+export const CreateShortCode = (length = 7) => {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+  const bytes = crypto.randomBytes(length);
+  let short = "";
+  for (let i = 0; i < length; i++) {
+    short += alphabet[bytes[i] % alphabet.length];
+  }
+  return short;
+};

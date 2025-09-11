@@ -23,6 +23,6 @@ const urlSchema = new mongoose.Schema(
   { timestamps: true } // adds createdAt & updatedAt automatically
 );
 
-const Url = mongoose.model("Url", urlSchema);
+const UrlModel = mongoose.model("Url", urlSchema);
 
-export default Url;
+export default UrlModel;

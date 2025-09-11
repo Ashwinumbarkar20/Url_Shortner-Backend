@@ -8,6 +8,7 @@ import {
 } from "../Utils/index.js";
 import userModel from "../Model/user.model.js";
 const authController = {
+
   signup: async (req, res) => {
     try {
       const { name, email, password } = req.body;
@@ -27,16 +28,17 @@ const authController = {
       errorResponse(res, 500, "Something went Wrong");
     }
   },
+  
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
       const existingUser = await userModel.findOne({ email });
       if (existingUser) {
         if (verifyHashPassword(password, existingUser.password)) {
-          const {password,...userInfo}=existingUser.toObject()
-          console.log("userInfo-->",userInfo)
-          const token = CreateToken({userInfo});
-         
+          const { password, ...userInfo } = existingUser.toObject();
+          console.log("userInfo-->", userInfo);
+          const token = CreateToken({ userInfo });
+
           if (token) {
             successResponse(res, 200, "Success", {
               id: existingUser._id,
@@ -50,7 +52,7 @@ const authController = {
         errorResponse(res, 404, "User Not Found");
       }
     } catch (e) {
-      console.log("error ",e)
+      console.log("error ", e);
       errorResponse(res, 500, "something went wrong");
     }
   },
